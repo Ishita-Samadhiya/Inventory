@@ -10,6 +10,7 @@ import Foundation
 //initialize vars
 var opt: Int = 0
 var price: Double = 0.0
+let id: Int = 1234
 var bought = [0,0,0,0]
 var stock = [100,100,100,100]
 var prices = [4.99,4.99,3.99,2.99]
@@ -71,12 +72,54 @@ func check(){
     print("There are currently \(stock[index-1]) \(items[index-1]) in stock!")
 }
 func admin(){
-    print("i")
+    print("Enter Admin ID:")
+    var pass: Int = Int(readLine()!)!
+    if(pass != id){
+        print("Incorrect ID, please enter the right ID to open admin menu.")
+    }
+    while(pass == id){
+        print("Welcome to the Admin menu! Lets us know how we can help you (Enter number of selection):\n1. Restock inventory\n2. Generate report\n3. Check number of items\n4. Quit admin menu")
+        let choice: Int = Int(readLine()!)!
+        switch choice{
+        case 1:
+            print("What would you like to restock? (Enter number of selection):\n1. Cereal\n2. Milk\n3. Syrup\n4. Cups")
+            let index: Int = Int(readLine()!)!
+            print("How many units of \(items[index-1]) would you like to restock?:")
+            let many: Int = Int(readLine()!)!
+            stock[index-1] += many
+            print("Restocked \(many) units of \(items[index-1])")
+        case 2:
+            print("Summary Report:")
+            var inv: Int = 0
+            for i in 0...3{
+                print("Remaining \(items[i])s: \(stock[i]) items")
+                inv += stock[i]
+            }
+            print("Remaining Inventory: \(inv) items\nTotal Sales: $\(price)")
+        case 3:
+            check()
+        case 4:
+            print("Returning to normal menu")
+            pass = 5858
+        default:
+            break
+        }
+    }
 }
 func out(){
-    print("i")
+    print("Thanks for shopping with us!")
+    print("You purchases the following:")
+    for i in 0...3{
+        break
+    }
 }
 func empty(){
-    print("i")
+    price=0.0;
+    for i in 0...3{
+        stock[i]+=bought[i]
+        bought[i]=0
+    }
+    print("Your cart has been emptied!")
+    print("Current total is: $\(price)")
 }
 
