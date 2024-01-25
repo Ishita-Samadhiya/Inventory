@@ -16,8 +16,8 @@ var stock = [100,100,100,100]
 var prices = [4.99,4.99,3.99,2.99]
 var items = ["cereal", "milk", "syrup", "cups"]
 //main loop
-while opt<5{
-    print("Welcome to the grocery store! Lets us know how we can help you (Enter number of selection):\n1. Add item to cart\n2. Remove item for cart\n3. Check if item is in stock\n4. Admin Menu\n5. Checkout\n6. Empty Cart")
+while true{
+    print("\nWelcome to the grocery store! Lets us know how we can help you (Enter number of selection):\n1. Add item to cart\n2. Remove item for cart\n3. Check if item is in stock\n4. Admin Menu\n5. Checkout\n6. Empty Cart")
     opt = Int(readLine()!)!
     switch opt{
     case 1:
@@ -30,10 +30,11 @@ while opt<5{
         admin()
     case 5:
         out()
-    case 6:
-        empty()
-    default:
         break
+    case 6:
+        clear()
+    default:
+        print("Please choose an appropriate option!")
     }
 }
 //option functions
@@ -45,7 +46,7 @@ func add(){
     let many: Double = Double(readLine()!)!
     stock[index-1] -= Int(many)
     if(stock[index-1] >= 0){
-        print("You have added \(many) \(item) to your cart!")
+        print("You have added \(Int(many)) \(item) to your cart!")
         price += round(prices[index-1]*many*100)/100.0
         print("Current total is: $\(price)")
         bought[index-1] = Int(many)
@@ -62,8 +63,9 @@ func delete(){
     let many: Double = Double(readLine()!)!
     stock[index-1] += Int(many)
     bought[index-1] -= Int(many)
-    price -= round(prices[index-1]*many*100)/100.0
-    print("Removed \(many) from the cart!")
+    price -= prices[index-1]*many
+    price = round(price*100)/100
+    print("Removed \(Int(many)) from the cart!")
     print("Current total is: $\(price)")
 }
 func check(){
@@ -78,7 +80,7 @@ func admin(){
         print("Incorrect ID, please enter the right ID to open admin menu.")
     }
     while(pass == id){
-        print("Welcome to the Admin menu! Lets us know how we can help you (Enter number of selection):\n1. Restock inventory\n2. Generate report\n3. Check number of items\n4. Quit admin menu")
+        print("\nWelcome to the Admin menu! Lets us know how we can help you (Enter number of selection):\n1. Restock inventory\n2. Generate report\n3. Check number of items\n4. Quit admin menu")
         let choice: Int = Int(readLine()!)!
         switch choice{
         case 1:
@@ -110,10 +112,11 @@ func out(){
     print("Thanks for shopping with us!")
     print("You purchases the following:")
     for i in 0...3{
-        break
+        print("\(items[i]): \(bought[i])")
     }
+    print("Your grand total including tax (9.25%) is: \(round(price*1.0925*100)/100.00)")
 }
-func empty(){
+func clear(){
     price=0.0;
     for i in 0...3{
         stock[i]+=bought[i]
