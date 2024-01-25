@@ -16,7 +16,7 @@ var stock = [100,100,100,100]
 var prices = [4.99,4.99,3.99,2.99]
 var items = ["cereal", "milk", "syrup", "cups"]
 //main loop
-while true{
+while opt != -1{
     print("\nWelcome to the grocery store! Lets us know how we can help you (Enter number of selection):\n1. Add item to cart\n2. Remove item for cart\n3. Check if item is in stock\n4. Admin Menu\n5. Checkout\n6. Empty Cart")
     opt = Int(readLine()!)!
     switch opt{
@@ -30,6 +30,7 @@ while true{
         admin()
     case 5:
         out()
+        opt = -1
         break
     case 6:
         clear()
